@@ -10,7 +10,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp-forge/hermes/internal/api"
 	apiv2 "github.com/hashicorp-forge/hermes/internal/api/v2"
 	"github.com/hashicorp-forge/hermes/internal/auth"
 	"github.com/hashicorp-forge/hermes/internal/cmd/base"
@@ -344,31 +343,6 @@ func (c *Command) Run(args []string) int {
 		// Algolia proxy.
 		{"/1/indexes/",
 			algolia.AlgoliaProxyHandler(algoSearch, cfg.Algolia, c.Log)},
-
-		// API v1.
-		{"/api/v1/approvals/",
-			api.ApprovalHandler(cfg, c.Log, algoSearch, algoWrite, goog, db)},
-		{"/api/v1/document-types", api.DocumentTypesHandler(*cfg, c.Log)},
-		{"/api/v1/documents/",
-			api.DocumentHandler(cfg, c.Log, algoSearch, algoWrite, goog, db)},
-		{"/api/v1/drafts",
-			api.DraftsHandler(cfg, c.Log, algoSearch, algoWrite, goog, db)},
-		{"/api/v1/drafts/",
-			api.DraftsDocumentHandler(cfg, c.Log, algoSearch, algoWrite, goog, db)},
-		{"/api/v1/jira/issue/picker", apiv2.JiraIssuePickerHandler(srv)},
-		{"/api/v1/jira/issues/", apiv2.JiraIssueHandler(srv)},
-		{"/api/v1/me", api.MeHandler(c.Log, goog)},
-		{"/api/v1/me/recently-viewed-docs",
-			api.MeRecentlyViewedDocsHandler(cfg, c.Log, db)},
-		{"/api/v1/me/subscriptions",
-			api.MeSubscriptionsHandler(cfg, c.Log, goog, db)},
-		{"/api/v1/people", api.PeopleDataHandler(cfg, c.Log, goog)},
-		{"/api/v1/products", api.ProductsHandler(cfg, algoSearch, c.Log)},
-		{"/api/v1/projects", apiv2.ProjectsHandler(srv)},
-		{"/api/v1/projects/", apiv2.ProjectHandler(srv)},
-		{"/api/v1/reviews/",
-			api.ReviewHandler(cfg, c.Log, algoSearch, algoWrite, goog, db)},
-		{"/api/v1/web/analytics", api.AnalyticsHandler(c.Log)},
 
 		// API v2.
 		{"/api/v2/approvals/", apiv2.ApprovalsHandler(srv)},
